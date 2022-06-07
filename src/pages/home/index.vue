@@ -1,57 +1,103 @@
 <template>
-    <div class="home">
-        <ImageEditor ref="tuiImageEditor" :include-ui="useDefaultUI" :options="options"></ImageEditor>
-    </div>
+  <div class="home-container">
+    <!-- <div class="Header">图片预览组件</div> -->
+    <toolbar :handleDelete="handleDelete" :rotate="handleRotate" :createImg="handleCreateImg"></toolbar>
+    <vue-fabric ref="canvas" :width="width" :height="height"></vue-fabric>
+    <image-list :handleAdd="handleAdd"></image-list>
+  </div>
 </template>
 
 <script>
-    import "tui-image-editor/dist/tui-image-editor.css"
-    import "tui-color-picker/dist/tui-color-picker.css"
+import toolbar from './toolbar';
+import ImageList from './image-list';
 
-    import ImageEditor from '@toast-ui/vue-image-editor/src/ImageEditor.vue'
-    import Logo from '@/assets/logo.png'
-    export default {
-        name: 'Home',
-        components: {
-            ImageEditor
-        },
-        data() {
-            return {
-                useDefaultUI: true,
-                options: {
-                    includeUI: {
-                        initMenu: 'draw',
-                        menu: [
-                            'crop',
-                            'draw',
-                            'icon',
-                            'text',
-                            'flip',
-                            'rotate',
-                            'shape',
-                            'mask',
-                            'filter'
-                        ],
-                        menuBarPosition: 'bottom',
-                        loadImage: {
-                            path: Logo,
-                            name: 'sample'
-                        }
-                    }
-                }
-            }
-        },
-        mounted() {
-            console.log(this.$refs.tuiImageEditor, '888')
-            const drawingMode = this.$refs.tuiImageEditor.invoke('getDrawingMode')
-            this.$refs.tuiImageEditor.invoke('loadImageFromURL', '../../assets/logo.png')
-            console.log(drawingMode, 'drawingMode')
-        }
+export default {
+  name: 'el-index',
+  components: {
+    toolbar,
+    ImageList
+  },
+  data () {
+    return {
+      imgUrl: 'http://data618.oss-cn-qingdao.aliyuncs.com/ys/3524/img/b.jpg',
+      width: 300,
+      height: 500
+    };
+  },
+  created () {
+    // this.width = document.body.offsetWidth;
+    // this.height = document.body.offsetHeight;
+    console.log(document.body.offsetWidth, 'width');
+    console.log(document.body.offsetHeight, 'height');
+    this.width = 693;
+    this.height = 584;
+  },
+  mounted () {
+    this.$refs.canvas.createTriangle(40, 40, 'yellow');
+    this.$refs.canvas.createImage('/static/images/sticker1.png', {
+      width: 200,
+      height: 200
+    });
+    this.$refs.canvas.setSelection(true)
+    // this.$refs.canvas.createImage('/static/images/sticker2.png');
+    // this.$refs.canvas.createImage('/static/images/sticker3.png');
+  },
+  methods: {
+    handleDelete () {
+      console.log('handleDelete');
+
+      this.$refs.canvas.removeCurrentObj();
+    },
+    handleRotate () {
+      this.$refs.canvas.setRotate();
+     // this.$refs.canvas.moveTo();
+    },
+    handleAdd (url) {
+      this.$refs.canvas.createImage(url);
+    },
+    handleCreateImg () {
+      console.log('000')
+      const imgUrl = this.$refs.canvas.toDataUrl({format: 'png', multiplier: 1})
+      console.log(imgUrl, 'imgUrl')
     }
+  }
+};
 </script>
 
-<style scoped>
-    .home {
-        height: 100%;
+<style lang="scss" scoped>
+.tab {
+  text-align: center;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #F2F2F2;
+  a {
+    color: #7e8c8d;
+  }
+}
+
+  .home-container{
+    width: 100%;
+    position: relative;
+    .Header{
+      background:linear-gradient(90deg, rgb(231, 86, 142), #ff696b);
+      padding: 4vw;
+      color: #fff;
+      text-align: center;
     }
+    .item-wrapper{
+      display: flex;
+      padding: 4vw;
+    }
+    .item-image{  
+      width: 25vw;
+    }
+    .item-right{
+      flex: 1;
+      margin-left: 3vw;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      padding: 1vw 0;
+    }
+  }
 </style>
