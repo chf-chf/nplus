@@ -1,14 +1,19 @@
 <template>
     <div class="tool-bar">
-        <i @click="handleDelete" class="pt-iconfont icon-delete"></i>
-        <i @click="rotate" class="pt-iconfont icon-shuaxin"></i>
+        <a-icon @click="handleDelete" class="pt-iconfont" type="delete" />
+        <a-icon @click="rotate" class="pt-iconfont" type="undo" />
+        <!-- <a-icon @click="createImg" class="pt-iconfont" type="plus-circle" /> -->
+        <a-icon @click="createImg" class="pt-iconfont" type="upload" />
+
+        <!-- <i @click="handleDelete" class="pt-iconfont icon-delete"></i> -->
+        <!-- <i @click="rotate" class="pt-iconfont icon-shuaxin"></i> -->
         <!-- <i class="pt-iconfont icon-crop"></i> -->
-        <i @click="createImg" class="pt-iconfont icon-plus-circle"></i>
+        <!-- <i @click="createImg" class="pt-iconfont icon-plus-circle"></i> -->
     </div>
 </template>
 
 <script type='text/ecmascript-6'>
-  // import {DeleteOutlined} from '@ant-design/icons-vue'
+
   export default {
     props: {
       handleDelete: Function,

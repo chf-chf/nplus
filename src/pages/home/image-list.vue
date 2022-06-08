@@ -1,9 +1,9 @@
 <template>
     <div class="image-list">
-        <div>开始设计</div>
         <div :key="item.id" v-for="item in list" class="image-wrapper">
             <img :src="item.url" style="width: 100px;height:100px;border-radius: 5px;" />
-            <i @click="handleAdd(item.url)" class="pt-iconfont icon-plus-circle"></i>
+            <!-- <i @click="handleAdd(item.url)" class="pt-iconfont icon-plus-circle"></i> -->
+            <a-icon @click="handleAdd(item.url)" class="pt-iconfont" type="plus-circle" />
         </div>
     </div>
 </template>
@@ -38,6 +38,9 @@
           }, {
             id: 6,
             url: '/static/images/sticker6.png'
+          }, {
+            id: 7,
+            url: '/static/images/sticker7.jpg'
           }
         ]
       };
