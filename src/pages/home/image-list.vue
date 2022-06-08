@@ -9,6 +9,7 @@
 </template>
 
 <script type='text/ecmascript-6'>
+  import axios from 'axios'
   export default {
     props: {
       handleAdd: Function
@@ -42,13 +43,23 @@
             id: 7,
             url: '/static/images/sticker7.jpg'
           }
-        ]
+        ],
+        info: []
       };
     },
     created () {
     },
     mounted () {
-
+      // http://keyawstest.gf.com.cn/external/baike/api/search/baike/hotwords
+      // nfts.diangezantech.com/v1/get_nfts_v1?address=0x29cCf6547BA65Bfc3E114d607D7dDb596edaeB44&chains=eth,polygon
+      axios
+      .get('nfts.diangezantech.com/v1/get_nfts_v1?address=0x29cCf6547BA65Bfc3E114d607D7dDb596edaeB44&chains=eth,polygon')
+      .then(response => {
+        console.log(response, 'res')
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
     },
     methods: {
 
