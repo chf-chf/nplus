@@ -64,7 +64,8 @@
         .pt-iconfont{
             padding: 2.5vw 2vw;
             font-size: 2.3vw;
-            color: #666;
+            // color: #666;
+            color: #fff;
             cursor: pointer;
         }
     }

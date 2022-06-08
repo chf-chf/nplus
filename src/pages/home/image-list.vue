@@ -1,7 +1,8 @@
 <template>
     <div class="image-list">
+        <div>开始设计</div>
         <div :key="item.id" v-for="item in list" class="image-wrapper">
-            <img :src="item.url" style="width: 100px;height:100px;" />
+            <img :src="item.url" style="width: 100px;height:100px;border-radius: 5px;" />
             <i @click="handleAdd(item.url)" class="pt-iconfont icon-plus-circle"></i>
         </div>
     </div>
@@ -36,7 +37,7 @@
             url: '/static/images/sticker5.png'
           }, {
             id: 6,
-            url: '/static/images/sticker1.png'
+            url: '/static/images/sticker6.png'
           }
         ]
       };
@@ -68,7 +69,7 @@
         -webkit-overflow-scrolling: touch;
         flex-wrap:nowrap;
         border-top: 1px solid #e4e4e4;
-        margin-left: 4vw;
+        // margin-left: 4vw;
 
         &::-webkit-scrollbar {
             display: none;
@@ -113,7 +114,7 @@
                 right: 0vw;
                 top: 0vw;
                 color: #999;
-                font-size: 4.5vw;
+                font-size: 2.6vw;
                 padding: 1vw;
             }
         }
