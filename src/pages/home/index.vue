@@ -76,11 +76,7 @@ export default {
       let self = this;
       const imgUrl = this.$refs.canvas.toDataUrl('image/png', 1.0)
 
-      // 转成png
-
       console.log(imgUrl, 'imgUrl')
-      // let imgRes = await ipfs.add(urlSource(imgUrl))
-      // console.log(imgRes, 'imgRes')
 
       let info = {
         name: '绿化费老师的看法',
