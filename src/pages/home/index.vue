@@ -44,6 +44,9 @@ export default {
     this.height = 576;
   },
   mounted () {
+    // this.imgToBase64('https://lh3.googleusercontent.com/5Bl21B5rFFWxe_7gWoHgGlPSMNFx_uOvge8TsPm7uHoZ9otMJDwYYZ_7fRXb4Hw8hDRI0A3qj0xMzaLekKLfPjhcIwgerEcyIok-Ofc').then(base64 => {
+    //   console.log(base64, 'base64')
+    // })
     this.connect()
     // this.$refs.canvas.createTriangle(40, 40, 'yellow');
     this.$refs.canvas.setBackgroundColor('#252525')
@@ -56,6 +59,24 @@ export default {
     // this.$refs.canvas.createImage('/static/images/sticker3.png');
   },
   methods: {
+    imgToBase64 (imgUrl) {
+      console.log(imgUrl, 'imgUrl2');
+
+      return new Promise(resolve => {
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
+        let img = new Image()
+        img.crossOrigin = 'Anonymous'
+        img.src = imgUrl
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0)
+          let dataUrl = canvas.toDataURL('image/jpeg')
+          canvas = null
+          resolve(dataUrl)
+        }
+      })
+
+    },
     handleDelete () {
       console.log('handleDelete');
 
@@ -66,21 +87,40 @@ export default {
      // this.$refs.canvas.moveTo();
     },
     handleAdd (url) {
-      this.$refs.canvas.createImage(url, {
-        width: 100,
-        height: 100
-      });
+      // 1.通过图片URL添加到画布
+      // this.$refs.canvas.createImage(url, {
+      //   width: 100,
+      //   height: 100,
+      // });
+
+      // 2.将图片转成base64再添加到画布
+      // this.imgToBase64(url).then(base64 => {
+      //   console.log(base64, 'base')
+      //   this.$refs.canvas.createImage(base64, {
+      //     width: 100,
+      //     height: 100,
+      //   });
+      // })
+
+      // 3.通过img对象添加到画布-解决图片跨域
+      let img = new Image()
+      img.setAttribute('crossOrigin', 'anonymous')
+      let self = this
+      img.onload = () => {
+        self.$refs.canvas.createImageByImg(img, {width: 100, height: 100, crossOrigin:"anonymous"})
+      }
+      img.src = url
+      
     },
     async handleCreateImg () {
-      console.log('000')
       let self = this;
-      const imgUrl = this.$refs.canvas.toDataUrl('image/png', 1.0)
+      const imgUrl = this.$refs.canvas.toDataUrl('image/png')
 
       console.log(imgUrl, 'imgUrl')
 
       let info = {
-        name: '绿化费老师的看法',
-        description: '福建省砥砺奋斗发防静电释放第三方',
+        name: '哈哈哈--绿化费老师的看法',
+        description: '获取nft了--福建省砥砺奋斗发防静电释放第三方',
         image: imgUrl
       }
       let result = await ipfs.add(JSON.stringify(info))

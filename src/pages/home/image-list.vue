@@ -2,9 +2,13 @@
     <div class="image-list">
         <div :key="index" v-for="(item, index) in info" class="image-wrapper">
             <img :src="item" style="width: 100px;height:100px;border-radius: 5px;" />
-            <!-- <i @click="handleAdd(item.url)" class="pt-iconfont icon-plus-circle"></i> -->
             <a-icon @click="handleAdd(item)" class="pt-iconfont" type="plus-circle" />
         </div>
+
+        <!-- <div :key="item.id" v-for="item in list" class="image-wrapper">
+            <img :src="item.url" style="width: 100px;height:100px;border-radius: 5px;" />
+            <a-icon @click="handleAdd(item.url)" class="pt-iconfont" type="plus-circle" />
+        </div> -->
     </div>
 </template>
 
