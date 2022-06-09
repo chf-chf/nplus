@@ -1,5 +1,9 @@
 <template>
     <div class="image-list">
+        <div class="spin" v-if="info.length === 0">
+          <a-spin size="large" />
+        </div>
+        
         <div :key="index" v-for="(item, index) in info" class="image-wrapper">
             <img :src="item" style="width: 100px;height:100px;border-radius: 5px;" />
             <a-icon @click="handleAdd(item)" class="pt-iconfont" type="plus-circle" />
@@ -61,7 +65,6 @@
       .then(response => {
         console.log(response, 'res')
         this.info = response.data.nfts
-        console.log(this.info, 'info')
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
@@ -95,6 +98,11 @@
             display: none;
         }
 
+        .spin {
+          padding: 1.5vw;
+          text-align: center;
+          min-width: 20vw;
+        }
         .image-wrapper{
             // padding: 4vw;
             padding: 1.5vw;
