@@ -1,9 +1,9 @@
 <template>
     <div class="image-list">
-        <div :key="item.id" v-for="item in list" class="image-wrapper">
-            <img :src="item.url" style="width: 100px;height:100px;border-radius: 5px;" />
+        <div :key="index" v-for="(item, index) in info" class="image-wrapper">
+            <img :src="item" style="width: 100px;height:100px;border-radius: 5px;" />
             <!-- <i @click="handleAdd(item.url)" class="pt-iconfont icon-plus-circle"></i> -->
-            <a-icon @click="handleAdd(item.url)" class="pt-iconfont" type="plus-circle" />
+            <a-icon @click="handleAdd(item)" class="pt-iconfont" type="plus-circle" />
         </div>
     </div>
 </template>
@@ -53,9 +53,11 @@
       // http://keyawstest.gf.com.cn/external/baike/api/search/baike/hotwords
       // nfts.diangezantech.com/v1/get_nfts_v1?address=0x29cCf6547BA65Bfc3E114d607D7dDb596edaeB44&chains=eth,polygon
       axios
-      .get('nfts.diangezantech.com/v1/get_nfts_v1?address=0x29cCf6547BA65Bfc3E114d607D7dDb596edaeB44&chains=eth,polygon')
+      .get('http://nfts.diangezantech.com/v1/get_nfts_v1?address=0x29cCf6547BA65Bfc3E114d607D7dDb596edaeB44&chains=eth,polygon')
       .then(response => {
         console.log(response, 'res')
+        this.info = response.data.nfts
+        console.log(this.info, 'info')
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

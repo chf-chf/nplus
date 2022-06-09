@@ -67,8 +67,8 @@ export default {
     },
     handleAdd (url) {
       this.$refs.canvas.createImage(url, {
-        width: 200,
-        height: 200
+        width: 100,
+        height: 100
       });
     },
     async handleCreateImg () {
