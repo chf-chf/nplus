@@ -1,17 +1,18 @@
 <template>
     <div id="home">
-         <div>反倒是浪费</div>
-         <vue-fabric ref="canvas" :width="400" :height="400"></vue-fabric>
+        <div>反倒是浪费</div>
+        <div ref="printMe" style="padding: 10px; background: #f5da55">
+            <h1 style="color: #000; ">Print me!</h1>
+        </div>
+        <!-- OUTPUT -->
+        <!-- <img :src="output"> -->
         <!-- <ImageEditor ref="tuiImageEditor" :include-ui="useDefaultUI" :options="options"></ImageEditor> -->
     </div>
 </template>
 
 <script>
-    import "tui-image-editor/dist/tui-image-editor.css"
-    import "tui-color-picker/dist/tui-color-picker.css"
 
     // import ImageEditor from '@toast-ui/vue-image-editor/src/ImageEditor.vue'
-    // import html2canvas from 'html2canvas';
     import Logo from '@/assets/logo.png'
     export default {
         name: 'Home',
@@ -20,6 +21,7 @@
         },
         data() {
             return {
+                output: null,
                 useDefaultUI: true,
                 options: {
                     includeUI: {
@@ -44,9 +46,20 @@
                 }
             }
         },
+        methods: {
+            async print() {
+                const el = this.$refs.printMe;
+                // add option type to get the image version
+                // if not provided the promise will return 
+                // the canvas.
+                const options = {
+                    type: 'dataURL'
+                }
+                this.output = await this.$html2canvas(el, options);
+            }
+        },
         mounted() {
-            console.log(this.$refs.canvas, 'canvas');
-            this.$refs.canvas.createImage('https://egalitarian.plus/upload/image/202203/076627c7-090a-4f9b-ac70-87d803688f21.jpg', {width: 200, height: 200})
+            // this.print()
         }
     }
 </script>
@@ -55,6 +68,6 @@
     #home {
         /* margin: 0 auto; */
         height: 100%;
-        color: #252525;
+        color: #fff;
     }
 </style>

@@ -7,7 +7,7 @@
 
         <!-- <i @click="handleDelete" class="pt-iconfont icon-delete"></i> -->
         <!-- <i @click="rotate" class="pt-iconfont icon-shuaxin"></i> -->
-        <!-- <i class="pt-iconfont icon-crop"></i> -->
+        <!-- <i @click="goPage" class="pt-iconfont icon-crop"></i> -->
         <!-- <i @click="createImg" class="pt-iconfont icon-plus-circle"></i> -->
     </div>
 </template>
@@ -32,7 +32,10 @@
 
     },
     methods: {
-
+      goPage() {
+        console.log('999')
+        this.$router.push('home')
+      }
     }
   };
 </script>
